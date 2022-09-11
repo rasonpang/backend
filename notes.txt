@@ -1,0 +1,5 @@
+Issue
+- use app.get in ./src/...
+	- routes.ts:		Too hard to implement dynamic imports (OK) with type-definitive (NOT OK)
+	- modules/index.ts:	Same as above
+	- modules/.../index.ts:	Hard to maintain once other modules are required in controller 
