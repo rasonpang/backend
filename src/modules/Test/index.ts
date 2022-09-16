@@ -1,9 +1,7 @@
-import { Router } from "express";
+import Model from './model';
+import Controller from './controller';
+import Service from './service';
 
-const app = Router();
-
-app.get('/', (req, res) => {
-    res.send('Hello world');
-});
-
-export default app;
+export default {
+    ...Controller, Model, Service
+};

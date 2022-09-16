@@ -1,6 +1,15 @@
 import { Express } from 'express';
-import TestModule from 'modules/Test/index';
+
+import { RouteList } from 'types/common';
+
+import TestRoute from './Test';
+
+const RouteList: RouteList = [
+    ['/test', TestRoute],
+];
 
 export default function(app: Express) {
-    app.use('/test', TestModule);
+    RouteList.forEach(([path, route]) => {
+        app.use(path, route);
+    });
 };
