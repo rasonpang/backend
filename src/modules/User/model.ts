@@ -1,5 +1,6 @@
-export default {
-    test() {
-        console.log('This is Testing model')
-    },
-};
+import prisma from "query";
+
+export async function getUsers(options?: any) {
+    const user = await prisma.user.findFirst(options);
+	return user;
+}

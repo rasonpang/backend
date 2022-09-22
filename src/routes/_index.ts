@@ -2,11 +2,11 @@ import { Express } from 'express';
 
 import { RouteList } from 'types/common';
 
-import TestRoute from './Test';
+import UserRoute from './Product';
 import ProductRoute from './Product';
 
 const RouteList: RouteList = [
-    ['/test', TestRoute],
+    ['/user', UserRoute],
     ['/product', ProductRoute],
 ];
 
