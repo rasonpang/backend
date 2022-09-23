@@ -2,7 +2,7 @@ import { Express } from 'express';
 
 import { RouteList } from 'types/common';
 
-import UserRoute from './Product';
+import UserRoute from './User';
 import ProductRoute from './Product';
 
 const RouteList: RouteList = [

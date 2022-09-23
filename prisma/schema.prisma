@@ -10,17 +10,91 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User
 model User {
-  id        Int @id @default(autoincrement())
-  username  String
-  password  String
-  googleId  String
-  address   String
+  id            Int @id @default(autoincrement())
+  username      String
+  password      String
+
+  displayName   String
+  address       String
+  phoneNumber   String
 }
 
+// Product
 model Product {
   id          Int @id @default(autoincrement())
   name        String
   description String
   releaseDate DateTime
+  genreId Int @unique
+
+  cartItem CartItem?
+  productStock ProductStock?
+  productGenre ProductGenre @relation(fields: [genreId], references: [id])
+}
+
+model ProductStock {
+  id Int @id @default(autoincrement())
+  size String
+  price Decimal
+  quantity Int
+  productId Int @unique
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model ProductGenre {
+  id Int @id @default(autoincrement())
+  name String
+
+  product Product?
+}
+
+// Price
+model Discount {
+  id Int @id @default(autoincrement())
+  name String
+  type String // Percentage or Fixed Number
+  price Decimal
+  startDate DateTime
+  endDate DateTime?
+
+  adjustment Adjustment?
+}
+
+model Adjustment {
+  id Int @id @default(autoincrement())
+  orderId Int
+  discountId Int @unique
+
+  order Order @relation(fields: [orderId], references: [id])
+  discount Discount @relation(fields: [discountId], references: [id])
+}
+
+// Order
+model Order {
+  id  Int @id @default(autoincrement())
+  paymentId String
+  cartId Int @unique
+
+  cart Cart @relation(fields: [cartId], references: [id])
+  adjustments Adjustment[]
+}
+
+model Cart {
+  id Int @id @default(autoincrement())
+
+  order Order?
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id Int @id @default(autoincrement())
+  cartId Int
+  productId Int @unique
+  quantity Int
+
+  cart Cart @relation(fields: [cartId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
 }

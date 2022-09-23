@@ -1,7 +1,14 @@
-export interface User {
-	id: string; // Randomized hash
+export interface CreateUser {
 	username: string;
 	password: string;
-	gId?: string;
+	displayName: string;
 	address: string;
+	phoneNumber: string;
+}
+
+export interface UpdateUser {
+	password?: string;
+	displayName?: string;
+	address?: string;
+	phoneNumber?: string;
 }
