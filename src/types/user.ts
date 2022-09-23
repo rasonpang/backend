@@ -1,4 +1,4 @@
-export interface CreateUser {
+export interface UserCreate {
 	username: string;
 	password: string;
 	displayName: string;
@@ -6,7 +6,15 @@ export interface CreateUser {
 	phoneNumber: string;
 }
 
-export interface UpdateUser {
+export interface UserUpdate {
+	password?: string;
+	displayName?: string;
+	address?: string;
+	phoneNumber?: string;
+}
+
+export interface UserWhere {
+	username?: string;
 	password?: string;
 	displayName?: string;
 	address?: string;

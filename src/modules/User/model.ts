@@ -1,11 +1,11 @@
+import { Prisma } from "@prisma/client";
 import prisma from "query";
-import { CreateUser, UpdateUser } from "types/user";
 
 // Remember to implement transaction if needed.
 // Reference example: https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#findfirstorthrow
 
 // Create
-async function create(data: CreateUser) {
+async function create(data: Prisma.UserCreateInput) {
 	// Cannot create user with duplicated username or phoneNumber
 	const existing = await findExisting(data.username, data.phoneNumber);
 	if (!existing) {
@@ -23,19 +23,19 @@ async function findExisting(username: string, phoneNumber: string) {
 	return !!user;
 }
 
-async function findById(username: string, password: string) {
-	const user = await prisma.user.findFirst({
-		where: {
-			username,
-			password
-		}
-	});
+async function findById(where: Prisma.UserWhereInput, select?: Prisma.UserSelect) {
+	const user = await prisma.user.findFirst({ select, where });
 	return user;
 }
 
 // Update
-async function update(id: number, data: UpdateUser) {
+async function update(id: number, data: Prisma.UserUpdateInput) {
 	try {
+		const bannedKeys = ['id', 'username'];
+		for (const key of Object.keys(data)) {
+			if (!bannedKeys.includes(key)) continue;
+			throw new Error(`"${key}" key cannot be updated`);
+		}
 		await prisma.user.update({
 			where: { id },
 			data
