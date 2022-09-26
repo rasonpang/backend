@@ -1,5 +1,6 @@
 import { Router } from "express";
-// import { getUsers } from "modules/User/model";
+import ProductController from 'modules/Product/controller';
+
 const app = Router();
 
 app.get('/', async (req, res) => {

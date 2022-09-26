@@ -1,6 +1,32 @@
+import UserModel from 'modules/User/model';
+
 const Controller = {
-    test() {
-        console.log('This is Testing controller')
+    create: async (data: any) => {
+        const result = await UserModel.create(data);
+        const response = result
+            ? "User created successfully"
+            : "User create failed";
+        return response;
     },
+
+    login: async (data: any) => {
+        const result = await UserModel.findById(
+            data,
+            {
+                id: true,
+                displayName: true,
+                address: true,
+                phoneNumber: true
+            }
+        );
+        return result;
+    },
+
+    update: async (data: any) => {
+        const { id, ...updateData } = data;
+        const result = await UserModel.update(id, updateData);
+        return result;
+    }
 };
+
 export default Controller;

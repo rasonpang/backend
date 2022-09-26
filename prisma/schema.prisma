@@ -78,10 +78,13 @@ model Order {
   paymentId String
   cartId Int @unique
 
+  // Store total amount to prevent re-calculation
+  // Store product as JSON or String
+
   cart Cart @relation(fields: [cartId], references: [id])
   adjustments Adjustment[]
 }
-
+// if Cart enter Order, then it means paid
 model Cart {
   id Int @id @default(autoincrement())
 
