@@ -21,6 +21,10 @@ const Controller = {
         );
         return result;
     },
+    refreshToken: async (data: any) => {
+        const result = await UserModel.createToken(data.id);
+        return result;
+    },
 
     update: async (data: any) => {
         const { id, ...updateData } = data;

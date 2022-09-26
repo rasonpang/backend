@@ -19,6 +19,17 @@ model User {
   displayName   String
   address       String
   phoneNumber   String
+
+  userToken     UserToken?
+}
+
+model UserToken {
+  userId        Int @unique
+  accessToken   String
+  refreshToken  String
+  expiredAt     DateTime
+
+  user          User @relation(fields: [userId], references: [id])
 }
 
 // Product

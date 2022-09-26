@@ -14,6 +14,11 @@ app.get('/login', async ({ body }, res) => {
 	res.send(response);
 });
 
+app.get('/refreshToken', async ({ body }, res) => {
+	const response = await UserController.refreshToken(body);
+	res.send(response);
+})
+
 app.patch('/update', async ({ body }, res) => {
 	const response = await UserController.update(body);
 	res.send(response);

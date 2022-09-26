@@ -14,6 +14,21 @@ async function create(data: Prisma.UserCreateInput) {
 	}
 	return false;
 }
+async function createToken(userId: number) {
+	// 3 Days
+	const newExpireDate = +new Date() + (86400000 * 3);
+
+	const userToken = await prisma.userToken.create({
+		data: {
+			userId,
+			accessToken: "ACCESS_TOKEN",
+			refreshToken: "REFRESH_TOKEN",
+			expiredAt: new Date(newExpireDate)
+		}
+	});
+
+	return userToken;
+}
 
 // Read
 async function findExisting(username: string, phoneNumber: string) {
@@ -62,6 +77,7 @@ async function remove(id: number) {
 
 export default {
 	create,
+	createToken,
 	findById,
 	update,
 	remove

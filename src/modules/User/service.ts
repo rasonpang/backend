@@ -1,5 +1,8 @@
+import UserModel from 'modules/User/model';
+
 export default {
-    test() {
-        console.log('This is Testing service')
-    },
+    createToken: async (userId: string) => {
+        const result = await UserModel.createToken(Number(userId));
+        return result;
+    }
 };
